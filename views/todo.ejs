@@ -1,0 +1,49 @@
+<%- include("templates/header") %>
+<% if (authenticated) { %>
+  <h1>Hello, <%= username %>!</h1>
+  <form method="POST" action="/create-todo">
+    <!-- <label for="todo">New Todo:</label> -->
+    <input type="text" id="todo" name="todo" placeholder="what needs to be done?">
+    <button type="submit">Add</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% userTodos.forEach((todo, index) => { %>
+        <tr>
+          <td class="number"><%= index + 1 %></td>
+          <td class="description"><%= todo %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>You need to log in to access your to-do list.</p>
+<% } %>
+<%- include("templates/footer") %>
+
+<style>
+  table {
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid black;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .number {
+    text-align: center;
+  }
+  .description {
+    width: 100%;
+  }
+</style>
+

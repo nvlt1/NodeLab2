@@ -1,0 +1,24 @@
+<%- include("templates/header") %>
+<h1>Create User</h1>
+<form action='/submitUser' method='post'>
+    <input name='username' type='text' placeholder='name'>
+    <% if (missingUsername) { %>
+        <br>
+        <span style="color:red;">name is required</span>
+    <% } %>
+    <br>
+    <input name="email" type="text" placeholder="email">
+    <% if (missingEmail) { %>
+        <br>
+        <span style='color:red;'>email is required</span>
+    <% } %>
+    <br>
+    <input name="password" type="text" placeholder="password">
+    <% if (missingPassword) { %>
+        <br>
+        <span style='color:red;'>password is required</span>
+    <% } %>  
+    <br>
+    <button>Submit</button> 
+</form>
+<%- include("templates/footer") %>

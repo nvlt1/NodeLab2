@@ -1,0 +1,15 @@
+<%- include("templates/header") %> 
+    <h1>Welcome Admin</h1>
+	<h2>List of Users:</h2>
+    <ol>
+        <% for (let i = 0; i < users.length; i++) { %>
+            <li>
+                <a href="/user/<%= users[i].id %>" style="text-decoration: underline; color: blue;"><%= users[i].username %></a>
+            </li>
+        <% } %>
+    </ol>
+
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+<%- include("templates/footer") %> 

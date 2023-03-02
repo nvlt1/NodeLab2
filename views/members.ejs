@@ -1,0 +1,41 @@
+<%- include("templates/header") %>
+<title>Members Page</title>
+<% if (session.authenticated) { %>
+  <h1>Hello, <%= session.username %>!</h1>
+  <ul>
+    <% userTodos.forEach(todo => { %>
+      <li><%= todo %></li>
+    <% }); %>
+  </ul>
+  <form method="POST" action="/create-todo">
+    <label for="todo">New Todo:</label>
+    <input type="text" id="todo" name="todo">
+    <button type="submit">Create</button>
+  </form>
+  <form method="POST" action="/logout">
+    <button type="submit">Logout</button>
+  </form>
+<% } else { %>
+  <p>You need to log in to access your to-do list.</p>
+<% } %>
+<%- include("templates/footer") %>
+
+
+<!-- <%- include("templates/header") %>
+<title>Members Page</title>
+	<% if (session.authenticated) { %>
+		Hello, <%= session.username %>
+		<br>
+		"Meme1: <img src='/meme1.png' style='width:250px'>"
+		<br>
+		"Meme2: <img src='/meme2.png' style='width:250px'>"
+		<form action='/logout' method='post'>
+			<button>Signout</button>
+		</form>
+	<% } else { %>
+		Log in first!
+		<form action='/' method='get'>
+			<button>go back</button>
+		</form>
+	<% } %>
+<%- include("templates/footer") %> -->

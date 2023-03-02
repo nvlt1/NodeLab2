@@ -1,0 +1,24 @@
+{
+    "name": "node_website",
+    "version": "1.0.0",
+    "description": "Node.js on Qoddi",
+    "author": "Nav",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "build": "npm update"
+    },
+    "dependencies": {
+        "b": "^2.0.1",
+        "bcrypt": "^5.1.0",
+        "connect-mongo": "^4.6.0",
+        "crypt": "^0.0.2",
+        "dotenv": "^16.0.3",
+        "ejs": "^3.1.8",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "mysql2": "^3.1.2",
+        "node": "^19.6.0",
+        "process": "^0.11.10"
+    }
+}

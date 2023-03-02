@@ -5,3 +5,17 @@ pass: nav
 regular user account:
 user: nlitt1
 pass: nlitt1
+
+
+
+other info:
+
+1. Create user works, it does crash when a new user is created but the user
+does get saved into the DB.
+
+2. Couldn't get the list of todo's to save into the database, although
+when typed out, logged out of account, it is saved through the cookies i think?
+You can log out and log back in, it remains but after restarting the node service
+it doesn't get saved.
+
+3. the links in the member sites bring up 404, although /todo works. 

@@ -122,6 +122,29 @@ app.post('/logout', (req, res) => {
     res.redirect('/');
 });
 
+app.post('/submitTodo', async (req, res) => {
+    if (!req.session.authenticated) {
+        res.redirect('/');
+        return;
+    }
+
+    var todo = req.body.todo;
+    var userId = req.session.user_id;
+
+    var success = await db_users.createTodo({
+        user_id: userId,
+        todo: todo,
+    });
+
+    if (success) {
+        req.session.todos.push(todo);
+        res.redirect('/members');
+    } else {
+        res.render("errorMessage", {error: "Failed to create todo."} );
+    }
+});
+
+
 app.post('/submitUser', async (req, res) => {
     var username = req.body.username;
     var email = req.body.email;
@@ -162,31 +185,30 @@ function isValidSession(req) {
     return false;
 }
 
-function sessionValidation(req, res, next) {
-    if (isValidSession(req)) {
-      if (req.session.user_type === 'admin') {
-        next(); 
-      } else {
-        res.redirect('/members');
-      }
-    } else {
-      req.session.destroy();
-      res.redirect('/');
-    }
-  }
-  
-
 // function sessionValidation(req, res, next) {
-//     if (!isValidSession(req)) {
-//         req.session.destroy();
-//         res.redirect('/login');
-//         return;
+//     if (isValidSession(req)) {
+//       if (req.session.user_type === 'admin') {
+//         next(); 
+//       } else {
+//         res.redirect('/todo');
+//       }
+//     } else {
+//       req.session.destroy();
+//       res.redirect('/');
 //     }
-//     else {
-//         next();
-//     }
-// }
+//   }
 
+function sessionValidation(req, res, next) {
+    if (req.session.authenticated) {
+        if (req.session.user_type === 'admin' || req.path === '/members') {
+            return next();
+        } else {
+            res.redirect('/todo');
+        }
+    } else {
+        res.redirect('/');
+    }
+}
 
 
 function isAdmin(req) {
@@ -278,7 +300,7 @@ app.get('/todo', (req, res) => {
     });
   });
   
-  app.post('/create-todo', (req, res) => {
+  app.post('/create-todo', async (req, res) => {
     if (req.session.authenticated) {
       const newTodo = req.body.todo;
       userTodos.push(newTodo);
@@ -301,8 +323,3 @@ app.get("*", (req,res) => {
 app.listen(port, (req, res) => {
     console.log("Node application listening on port " + port);
 });
-
-
-
-
-

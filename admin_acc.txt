@@ -1,0 +1,7 @@
+admin account:
+user: nav
+pass: nav
+
+regular user account:
+user: nlitt1
+pass: nlitt1

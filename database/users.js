@@ -99,7 +99,28 @@ async function getUserTodos(postData) {
     }
 }
 
-module.exports = {createUser, getUsers, getUser, getUserTodos};
+async function createTodo(postData){
+    let createTodosSQL = `
+    INSERT INTO todo (description, user_id) 
+    VALUES (:description, :user_id);
+    `
+    let params = {
+        user_id: postData.user_id,
+        description: postData.description
+    }
+
+    try {
+        const results = await database.query(createTodosSQL, params);
+        return results;
+    }
+    catch (err){
+        console.log("Error creating todos");
+        console.log(err);
+        return false;
+    }
+}
+
+module.exports = {createUser, getUsers, getUser, getUserTodos, createTodo};
 
 // const database = include('databaseConnection');
 
